@@ -1,12 +1,8 @@
 {
-  "name": "the-hair-consultation-final-product",
-  "version": "1.0.0",
+  "name": "the-hair-consultation",
+  "version": "1.0.1",
   "private": true,
-  "description": "Private pre-appointment hair consultation tool",
   "scripts": {
     "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=18"
   }
 }

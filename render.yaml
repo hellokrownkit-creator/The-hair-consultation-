@@ -2,7 +2,10 @@ services:
   - type: web
     name: the-hair-consultation
     runtime: node
-    plan: free
     buildCommand: npm install
     startCommand: npm start
-    healthCheckPath: /
+    envVars:
+      - key: SALON_NAME
+        value: Your Salon
+      - key: SALON_PASSWORD
+        sync: false
