@@ -1,78 +1,224 @@
+
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#6d584a"><title>THE HAIR CONSULTATION™</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6d584a">
+<title>THE HAIR CONSULTATION™</title>
 <style>
 :root{--ink:#2b2622;--muted:#756d66;--paper:#fffdf9;--bg:#f3efe9;--line:#ded5cc;--accent:#6d584a;--soft:#eee7df}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:980px;margin:auto;padding:20px}.brand{font:500 22px Georgia,serif;letter-spacing:.08em}.brand small{display:block;font:10px system-ui;letter-spacing:.18em;color:var(--muted);margin-top:4px}header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:8px 0 20px}.tabs{display:flex;gap:7px}.btn,.tabs button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 13px;color:var(--ink);cursor:pointer}.primary,.tabs .active{background:var(--accent);color:#fff;border-color:var(--accent)}.card{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:22px;margin:14px 0;box-shadow:0 5px 18px #2b26220b}h1,h2{font-family:Georgia,serif;font-weight:500}h1{font-size:34px;line-height:1.08;margin:4px 0 8px}h2{font-size:23px;margin:0 0 8px}.muted{color:var(--muted)}.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:700}.banner{background:var(--soft);border:1px solid #dfd2c5;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;color:var(--ink)}textarea{min-height:92px;resize:vertical}.choices{display:flex;flex-wrap:wrap;gap:7px}.choices label{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px}.bar{height:5px;background:#e3dbd3;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}.nav{display:flex;justify-content:space-between;align-items:center;margin-top:15px}.hidden{display:none!important}.small{font-size:11px;color:var(--muted)}.success{text-align:center;padding:35px}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px;margin:8px 0}.row small{color:var(--muted)}.copy{cursor:pointer}.danger{color:#8b3328}.linkbox{background:#f7f3ee;border:1px dashed #cfc3b8;padding:12px;border-radius:9px;word-break:break-all;font-size:12px}@media(max-width:680px){.wrap{padding:14px}.grid{grid-template-columns:1fr}header{display:block}.tabs{margin-top:12px;overflow:auto}.tabs button{white-space:nowrap}h1{font-size:29px}}
-@media print{header,.tabs,.no-print,button{display:none!important}body{background:#fff}.card{box-shadow:none;border:0}}
-</style></head><body><div class="wrap">
-<header><div><div class="brand">THE HAIR CONSULTATION™<small>PRIVATE PRE-APPOINTMENT EDITION</small></div></div><div class="tabs"><button id="tClient" class="active" onclick="show('client')">Client</button><button id="tSalon" onclick="show('salon')">Salon</button></div></header>
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 60px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px}
+.brand{font:500 25px Georgia,serif;letter-spacing:.08em}.brand small{display:block;font:10px system-ui,sans-serif;letter-spacing:.18em;color:var(--muted);margin-top:5px}
+.tabs{display:flex;gap:10px;margin-bottom:22px}.tab,.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;padding:12px 18px;font:inherit;cursor:pointer}.tab.active,.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hidden{display:none!important}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 4px 18px rgba(43,38,34,.04)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}.muted{color:var(--muted)}
+h1{font:500 38px/1.1 Georgia,serif;margin:8px 0 14px}h2{font:500 25px Georgia,serif;margin:4px 0 14px}h3{margin:0 0 8px}
+.field{margin:14px 0}.field label{display:block;font-weight:600;margin-bottom:6px}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 12px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:105px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.choices{display:flex;flex-wrap:wrap;gap:9px}.choices label{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff;font-weight:400}.choices input{width:auto;margin-right:6px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px}.bar{height:5px;background:var(--soft);border-radius:10px;overflow:hidden;margin:18px 0}.bar i{display:block;height:100%;background:var(--accent);width:0}
+.banner{padding:13px 15px;border:1px solid var(--line);background:#f7f2eb;border-radius:10px;margin:12px 0}.error{border-color:#c99;background:#f7e5e2}.success{border-color:#9b8;background:#edf5e8}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.link{word-break:break-all}
+@media(max-width:650px){.wrap{padding:20px 14px 45px}header{display:block}.tabs{margin-top:18px}.grid{grid-template-columns:1fr}h1{font-size:32px}.brand{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand">THE HAIR CONSULTATION™<small>PRIVATE PRE-APPOINTMENT EDITION</small></div></header>
+<nav class="tabs" aria-label="Portal">
+<button id="tClient" class="tab active" type="button">Client</button>
+<button id="tSalon" class="tab" type="button">Salon</button>
+</nav>
 <section id="client"></section>
 <section id="salon" class="hidden"></section>
 </div>
 <script>
-const SERVICES=["Haircut / Styling","Colour / Lightening","Treatment / Repair","Texture / Smoothing"];
-const ALL_STEPS=["details","goals","history","condition","scalp","notes","review"];
-let client={step:0,fields:{},token:new URLSearchParams(location.search).get("token")||""};
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const choices=(n,a,m=false)=>`<div class="choices">${a.map(x=>`<label><input type="${m?"checkbox":"radio"}" name="${n}" value="${esc(x)}"> ${esc(x)}</label>`).join("")}</div>`;
-const inp=(n,l,t="text")=>`<div class="field"><label>${l}</label><input name="${n}" type="${t}"></div>`;
-const area=(n,l)=>`<div class="field"><label>${l}</label><textarea name="${n}"></textarea></div>`;
-function service(){return client.service||client.fields.service||"Colour / Lightening"}
-function steps(){let s=["details","goals","condition","scalp","notes","review"];let x=service();if(x==="Colour / Lightening"||x==="Texture / Smoothing")s.splice(2,0,"history");return s}
-function save(){document.querySelectorAll("#client [name]").forEach(e=>{if(e.type==="checkbox")client.fields[e.name]=[...document.querySelectorAll(`#client [name="${e.name}"]:checked`)].map(x=>x.value);else if(e.type==="radio"){if(e.checked)client.fields[e.name]=e.value}else client.fields[e.name]=e.value});client.service=client.fields.service||client.service}
-function restore(){document.querySelectorAll("#client [name]").forEach(e=>{let v=client.fields[e.name];if(v==null)return;if(e.type==="checkbox")e.checked=Array.isArray(v)&&v.includes(e.value);else if(e.type==="radio")e.checked=v===e.value;else e.value=v})}
-function renderClient(){
- if(!client.token){document.getElementById("client").innerHTML=`<div class="card"><div class="eyebrow">CLIENT LINK</div><h1>Your consultation link is missing.</h1><p class="muted">Please use the private consultation link sent by your salon.</p></div>`;return}
- const ss=steps(),k=ss[client.step]||"details";
- const content={
- details:`<div class="card"><div class="eyebrow">BEFORE YOUR APPOINTMENT</div><h1>Help your stylist understand your hair before you arrive.</h1><p class="muted">This short consultation helps the salon prepare for your appointment.</p><div class="grid">${inp("fullName","Full name")}${inp("preferredName","Preferred name")}${inp("mobile","Mobile")}${inp("email","Email","email")}</div><div class="field" style="margin-top:14px"><label>Booked service</label>${choices("service",SERVICES)}</div></div>`,
- goals:`<div class="card"><h2>Your Desired Result</h2><div class="grid">${area("desiredResult","What would you like to achieve?")}${area("inspiration","What do you love about your inspiration?")}${area("avoid","Anything you definitely want to avoid?")}${area("references","Reference images, links or notes")}</div></div>`,
- history:`<div class="card"><h2>Hair & Chemical History</h2><p class="muted">Please include anything that could affect your service, including home treatments.</p><div class="field"><label>In the last 24 months, have you had any of these?</label>${choices("chemHistory",["Colour","Bleach / Lightener","Highlights","Balayage","Toner / Gloss","Colour remover","Box dye","Henna","Metallic / unknown dye","Keratin","Perm / relaxer","Extensions"],true)}</div><div class="grid" style="margin-top:14px">${area("timeline","Approximate dates, brands, shades or details")}${area("otherTreatments","Anything else your stylist should know")}</div></div>`,
- condition:`<div class="card"><h2>Your Hair Today</h2><div class="field"><label>Hair pattern</label>${choices("pattern",["Straight","Wavy","Curly","Coily"])}</div><div class="field" style="margin-top:12px"><label>Hair thickness</label>${choices("thickness",["Fine","Medium","Thick","Coarse"])}</div><div class="field" style="margin-top:12px"><label>Current concerns</label>${choices("concerns",["Dryness","Breakage","Frizz","Tangles","Damage","Uneven colour","Fading","Scalp discomfort","None"],true)}</div><div class="grid" style="margin-top:14px">${area("homeCare","What products or treatments do you regularly use at home?")}${area("heatAndLifestyle","Heat styling, swimming, sun exposure or other relevant habits")}</div></div>`,
- scalp:`<div class="card"><h2>Scalp & Sensitivity</h2><div class="field"><label>Have you experienced any of these?</label>${choices("scalpFlags",["Sensitive scalp","Itching","Flaking","Redness","Irritation","Previous scalp reaction","Previous colour reaction","Previous bleach reaction","Known product allergy","None"],true)}</div><div class="grid" style="margin-top:14px">${area("allergies","Known allergies or sensitivities")}${area("scalpNotes","Anything else about your scalp or skin your stylist should know")}</div></div>`,
- notes:`<div class="card"><h2>Anything Else</h2>${area("additionalNotes","Anything you would like your stylist to know before your appointment")}</div>`,
- review:`<div class="card"><h2>Review & Submit</h2><div class="banner">Please check your answers. Your salon will receive this consultation after submission.</div><div id="review"></div><label class="choices" style="margin-top:15px"><span><input type="checkbox" id="confirm"> I confirm that the information I have provided is accurate to the best of my knowledge.</span></label></div>`
- }[k];
- document.getElementById("client").innerHTML=`<div class="bar"><i style="width:${(client.step+1)/ss.length*100}%"></i></div>${content}<div class="nav"><button class="btn" onclick="back()" ${client.step===0?"disabled":""}>← Back</button><span class="small">${client.step+1} of ${ss.length}</span><button class="btn primary" onclick="${k==="review"?"submitClient()":"next()"}">${k==="review"?"Submit Consultation":"Continue →"}</button></div>`;
- restore();if(k==="review")buildReview()
+'use strict';
+
+const SERVICES=['Haircut / Styling','Colour / Lightening','Treatment / Repair','Texture / Smoothing'];
+const STEPS=['details','goals','history','condition','scalp','notes','review'];
+const client={step:0,fields:{},token:new URLSearchParams(location.search).get('token')||localStorage.getItem('hairConsultationToken')||''};
+let salon={signedIn:false,salonName:'',links:[],submissions:[]};
+
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+function setActive(mode){
+  const clientMode=mode==='client';
+  $('client').classList.toggle('hidden',!clientMode);
+  $('salon').classList.toggle('hidden',clientMode);
+  $('tClient').classList.toggle('active',clientMode);
+  $('tSalon').classList.toggle('active',!clientMode);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function next(){save();client.step++;renderClient();scrollTo(0,0)}
-function back(){save();client.step--;renderClient();scrollTo(0,0)}
-function buildReview(){let f=client.fields;document.getElementById("review").innerHTML=[["Name",f.fullName],["Service",f.service],["Desired result",f.desiredResult],["Chemical history",(f.chemHistory||[]).join(", ")||"None selected"],["Current concerns",(f.concerns||[]).join(", ")||"None selected"]].map(x=>`<div class="row"><div><b>${esc(x[0])}</b><br><small>${esc(x[1]||"Not provided")}</small></div></div>`).join("")}
-async function submitClient(){save();if(!client.fields.fullName||!client.fields.service)return alert("Please provide your name and booked service.");if(!document.getElementById("confirm").checked)return alert("Please confirm your information before submitting.");let r=await fetch("/api/client/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:client.token,client:{fullName:client.fields.fullName,preferredName:client.fields.preferredName,mobile:client.fields.mobile,email:client.fields.email},answers:client.fields})}),d=await r.json();if(!r.ok)return alert(d.error||"Unable to submit.");document.getElementById("client").innerHTML=`<div class="card success"><div style="font-size:30px">✓</div><h1>Consultation submitted</h1><p class="muted">Your salon has received your information and can review it before your appointment.</p></div>`}
-async function loadClient(){let r=await fetch("/api/client/link?token="+encodeURIComponent(client.token)),d=await r.json();if(!r.ok)return renderClien
-async function show(m){document.getElementById("client").classList.toggle("hidden",m==="salon");document.getElementById("salon").classList.toggle("hidden",m==="client");document.getElementById("tClient").classList.toggle("active",m==="client");document.getElementById("tSalon").classList.toggle("active",m==="salon");if(m==="salon")renderSalon()}
-  const salonEl=document.getElementById("salon");
-  salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Loading…</h1><p class="muted">Checking salon access.</p></div>`;
+
+$('tClient').addEventListener('click',()=>setActive('client'));
+$('tSalon').addEventListener('click',()=>{setActive('salon');renderSalon();});
+
+function choices(name,items,selected){
+  return '<div class="choices">'+items.map(item=>{
+    const id=name+'-'+item.replace(/[^a-z0-9]+/gi,'-').toLowerCase();
+    return '<label for="'+esc(id)+'"><input id="'+esc(id)+'" type="radio" name="'+esc(name)+'" value="'+esc(item)+'" '+(selected===item?'checked':'')+'> '+esc(item)+'</label>';
+  }).join('')+'</div>';
+}
+
+function area(name,label,value,placeholder){
+  return '<div class="field"><label for="'+esc(name)+'">'+esc(label)+'</label><textarea id="'+esc(name)+'" name="'+esc(name)+'" placeholder="'+esc(placeholder||'')+'">'+esc(value||'')+'</textarea></div>';
+}
+
+function input(name,label,value,type='text'){
+  return '<div class="field"><label for="'+esc(name)+'">'+esc(label)+'</label><input id="'+esc(name)+'" name="'+esc(name)+'" type="'+type+'" value="'+esc(value||'')+'"></div>';
+}
+
+function collectClient(){
+  document.querySelectorAll('#client [name]').forEach(el=>{
+    if(el.type==='radio'){if(el.checked) client.fields[el.name]=el.value;}
+    else if(el.type==='checkbox'){client.fields[el.name]=el.checked;}
+    else client.fields[el.name]=el.value;
+  });
+}
+
+function renderClient(){
+  if(!client.token){
+    $('client').innerHTML='<div class="card"><div class="eyebrow">Client link</div><h1>Your consultation link is missing.</h1><p class="muted">Please use the private consultation link sent by your salon.</p></div>';
+    return;
+  }
+  const step=STEPS[client.step]||'details';
+  let content='';
+  if(step==='details'){
+    content='<div class="card"><div class="eyebrow">Before your appointment</div><h2>Help your stylist understand your hair before you arrive.</h2>'+input('fullName','Full name',client.fields.fullName)+ '<div class="field"><label for="service">Service</label><select id="service" name="service"><option value="">Choose a service</option>'+SERVICES.map(s=>'<option value="'+esc(s)+'" '+(client.fields.service===s?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select></div></div>';
+  }else if(step==='goals'){
+    content='<div class="card"><div class="eyebrow">Your desired result</div><h2>What would you like to achieve?</h2>'+area('desiredResult','Desired result',client.fields.desiredResult,'Tell your stylist what you want from this appointment.')+area('inspiration','Inspiration','', 'What do you love about your inspiration?')+area('avoid','Anything you definitely want to avoid?',client.fields.avoid,'Tell us what you do not want.')+'</div>';
+  }else if(step==='history'){
+    content='<div class="card"><div class="eyebrow">Hair & chemical history</div><h2>Please include anything that could affect your service.</h2>'+area('chemicalHistory','Chemical history',client.fields.chemicalHistory,'Colour, bleach, relaxers, keratin, extensions, etc.')+area('references','Reference / previous service',client.fields.references,'Recent salon services or important history.')+'</div>';
+  }else if(step==='condition'){
+    content='<div class="card"><div class="eyebrow">Your hair today</div><h2>Hair pattern</h2><div class="field">'+choices('pattern',['Straight','Wavy','Curly','Coily'],client.fields.pattern)+'</div><div class="field"><label>Hair thickness</label>'+choices('thickness',['Fine','Medium','Thick'],client.fields.thickness)+'</div></div>';
+  }else if(step==='scalp'){
+    content='<div class="card"><div class="eyebrow">Scalp & sensitivity</div><h2>Have you experienced any of these?</h2><div class="field">'+choices('scalp',['Itching','Flaking','Redness','Irritation','Previous scalp reaction','None'],client.fields.scalp)+'</div><div class="field"><label>Current concerns</label>'+choices('concerns',['Dryness','Oiliness','Breakage','Sensitivity','None'],client.fields.concerns)+'</div></div>';
+  }else if(step==='notes'){
+    content='<div class="card"><div class="eyebrow">Anything else?</div><h2>Anything you would like your stylist to know?</h2>'+area('additionalNotes','Additional notes',client.fields.additionalNotes,'Anything else that may help your stylist prepare.')+'</div>';
+  }else{
+    content='<div class="card"><div class="eyebrow">Review & submit</div><h2>Check your answers.</h2><div class="banner">Your salon will receive this consultation after you submit it.</div><div id="reviewList"></div><label class="field"><input id="confirm" type="checkbox"> I confirm that the information above is accurate.</label></div>';
+  }
+  $('client').innerHTML=content+'<div class="bar"><i style="width:'+((client.step+1)/STEPS.length*100)+'%"></i></div><div class="nav">'+(client.step>0?'<button id="back" class="btn" type="button">Back</button>':'<span></span>')+(step==='review'?'<button id="submit" class="btn primary" type="button">Submit consultation</button>':'<button id="next" class="btn primary" type="button">Next</button>')+'</div>';
+  if(step==='review') buildReview();
+  const next=$('next'); const back=$('back'); const submit=$('submit');
+  if(next) next.addEventListener('click',()=>{collectClient();if(validateStep())return;client.step++;renderClient();});
+  if(back) back.addEventListener('click',()=>{collectClient();client.step--;renderClient();});
+  if(submit) submit.addEventListener('click',submitClient);
+}
+
+function validateStep(){
+  if(STEPS[client.step]==='details' && (!client.fields.fullName||!client.fields.service)){alert('Please provide your name and choose your service.');return true;}
+  return false;
+}
+
+function buildReview(){
+  const f=client.fields;
+  const rows=[['Name',f.fullName],['Service',f.service],['Desired result',f.desiredResult],['Chemical history',f.chemicalHistory],['Hair pattern',f.pattern],['Hair thickness',f.thickness],['Scalp',f.scalp],['Current concerns',f.concerns],['Additional notes',f.additionalNotes]];
+  $('reviewList').innerHTML=rows.map(r=>'<div class="row"><strong>'+esc(r[0])+'</strong><span>'+esc(r[1]||'None provided')+'</span></div>').join('');
+}
+
+async function submitClient(){
+  collectClient();
+  if(!$('confirm').checked){alert('Please confirm your information before submitting.');return;}
+  const button=$('submit');button.disabled=true;button.textContent='Submitting…';
   try{
-    const r=await fetch("/api/me",{credentials:"same-origin"});
-    const me=await r.json();
-    if(!r.ok) throw new Error(me.error||("Server returned "+r.status));
-    if(!me.signedIn){
-      salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Private consultation inbox</h1><p class="muted">Sign in to create client links and review submitted consultations.</p><div class="field"><label>Salon password</label><input id="pw" type="password" placeholder="Salon password"></div><div id="loginError"></div><button class="btn primary" style="margin-top:10px" onclick="login()">Sign in</button></div>`;
-      return;
-    }
-    salonEl.innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px"><div><div class="eyebrow">${esc(me.salonName)}</div><h1>Consultation Inbox</h1></div><button class="btn" onclick="logout()">Sign out</button></div><div class="banner">Create a private one-use link for each client. Send the link before the appointment.</div><div class="grid"><div class="field"><label>Service</label><select id="newService">${SERVICES.map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>Client name (optional)</label><input id="newClient"></div></div><button class="btn primary" style="margin-top:12px" onclick="createLink()">Create Client Link</button><div id="newLink"></div></div><div class="card"><h2>Submitted consultations</h2><div id="inbox">Loading…</div></div>`;
-    loadInbox();
-  }catch(e){
-    salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Salon area could not load</h1><div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(e.message||"Unknown error")}</div><p class="muted">The page is working, but the salon API did not return a valid response. Tap Try again after the Render service finishes starting.</p><button class="btn primary" onclick="renderSalon()">Try again</button></div>`;
+    const response=await fetch('/api/client/submit?token='+encodeURIComponent(client.token),{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify(client.fields)});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||'Could not submit consultation.');
+    $('client').innerHTML='<div class="card"><div class="eyebrow">Submitted</div><h1>Consultation received.</h1><p class="muted">Your salon has received your pre-appointment information.</p></div>';
+  }catch(error){button.disabled=false;button.textContent='Submit consultation';showError($('client'),error.message);}
+}
+
+async function loadClient(){
+  try{
+    const response=await fetch('/api/client/link?token='+encodeURIComponent(client.token),{credentials:'same-origin'});
+    const data=await response.json().catch(()=>({}));
+    if(response.ok && data){client.fields={...(data.fields||{}),fullName:data.fullName||data.clientName||data.fields?.fullName||'',service:data.service||data.fields?.service||''};}
+  }catch(e){}
+  renderClient();
+}
+
+function showError(container,message){
+  const b=document.createElement('div');b.className='banner error';b.textContent=message||'Unknown error';container.prepend(b);
+}
+
+function renderSalon(){
+  $('salon').innerHTML='<div class="card"><div class="eyebrow">Salon portal</div><h1>Loading…</h1><p class="muted">Checking salon access.</p></div>';
+  loadSalon();
+}
+
+async function loadSalon(){
+  try{
+    const response=await fetch('/api/me',{credentials:'same-origin'});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||('Server returned '+response.status));
+    if(!data.signedIn){renderLogin();return;}
+    salon.signedIn=true;salon.salonName=data.salonName||data.name||'';await loadSalonData();renderDashboard();
+  }catch(error){
+    $('salon').innerHTML='<div class="card"><div class="eyebrow">Salon portal</div><h2>Salon area could not load.</h2><div class="banner error">'+esc(error.message)+'</div><p class="muted">The page is working, but the salon API did not respond successfully.</p></div>';
   }
 }
-async function login(){
-  const passwordEl=document.getElementById("pw");
-  const errorEl=document.getElementById("loginError");
-  try{
-    const r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({password:passwordEl.value})});
-    const d=await r.json();
-    if(!r.ok){errorEl.innerHTML=`<div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(d.error||"Sign in failed")}</div>`;return;}
-    renderSalon();
-  }catch(e){errorEl.innerHTML=`<div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(e.message)}</div>`;}
+
+function renderLogin(){
+  $('salon').innerHTML='<div class="card"><div class="eyebrow">Salon portal</div><h1>Private consultation inbox</h1><p class="muted">Sign in to create client links and review submitted consultations.</p>'+input('pw','Salon password','','password')+'<button id="login" class="btn primary" type="button">Sign in</button><div id="loginError"></div></div>';
+  $('login').addEventListener('click',login);
 }
-async function logout(){await fetch("/api/logout",{method:"POST"});renderSalon()}
-async function createLink(){let service=newService.value,clientName=newClient.value,r=await fetch("/api/salon/links",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service,clientName})}),d=await r.json();if(!r.ok)return alert(d.error||"Could not create link");let link=location.origin+location.pathname+"?token="+encodeURIComponent(d.token);newLink.innerHTML=`<div class="banner"><b>Private client link</b><div class="linkbox">${esc(link)}</div><button class="btn copy" style="margin-top:8px" onclick="navigator.clipboard.writeText('${link}')">Copy link</button></div>`}
-async function loadInbox(){let r=await fetch("/api/salon/submissions"),d=await r.json();if(!r.ok)return;inbox.innerHTML=d.submissions.length?d.submissions.map(x=>`<div class="row"><div><b>${esc(x.client.fullName)}</b><br><small>${esc(x.service)} · ${new Date(x.submittedAt).toLocaleString()}</small></div><button class="btn" onclick='viewSubmission("${x.id}")'>Review</button></div>`).join(""):"<p class='muted'>No consultations submitted yet.</p>"}
-async function viewSubmission(id){let d=await fetch("/api/salon/submissions").then(r=>r.json()),x=d.submissions.find(a=>a.id===id);if(!x)return;salon.innerHTML=`<div class="card"><button class="btn" onclick="renderSalon()">← Inbox</button><div class="eyebrow" style="margin-top:18px">${esc(x.service)}</div><h1>${esc(x.client.fullName)}</h1><p class="muted">Submitted ${new Date(x.submittedAt).toLocaleString()}</p>${Object.entries(x.answers).map(([k,v])=>`<div class="row"><div><b>${esc(k.replace(/([A-Z])/g," $1"))}</b><br><small>${esc(Array.isArray(v)?v.join(", "):v||"Not provided")}</small></div></div>`).join("")}<div class="no-print" style="margin-top:14px"><button class="btn primary" onclick="window.print()">Print / Save PDF</button></div></div>`}
-if(client.token)loadClient();else renderClient();
-</script></body></html>
+
+async function login(){
+  const button=$('login'),password=$('pw').value,error=$('loginError');
+  button.disabled=true;error.innerHTML='';
+  try{
+    const response=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({password})});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||'Sign in failed.');
+    salon.signedIn=true;salon.salonName=data.salonName||data.name||'';await loadSalonData();renderDashboard();
+  }catch(e){error.innerHTML='<div class="banner error">'+esc(e.message)+'</div>';button.disabled=false;}
+}
+
+async function loadSalonData(){
+  const [linksResponse,submissionsResponse]=await Promise.all([fetch('/api/salon/links',{credentials:'same-origin'}),fetch('/api/salon/submissions',{credentials:'same-origin'})]);
+  if(linksResponse.ok){const d=await linksResponse.json();salon.links=Array.isArray(d)?d:(d.links||[]);}
+  if(submissionsResponse.ok){const d=await submissionsResponse.json();salon.submissions=Array.isArray(d)?d:(d.submissions||[]);}
+}
+
+function renderDashboard(){
+  $('salon').innerHTML='<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><div class="eyebrow">Salon portal</div><h2>Consultation Inbox</h2></div><button id="logout" class="btn" type="button">Sign out</button></div><p class="muted">Create a private consultation link for each client.</p><div class="grid"><div class="field"><label for="newClient">Client name</label><input id="newClient" type="text" placeholder="Client name"></div><div class="field"><label for="newService">Service</label><select id="newService"><option value="">Choose a service</option>'+SERVICES.map(s=>'<option value="'+esc(s)+'">'+esc(s)+'</option>').join('')+'</select></div></div><button id="createLink" class="btn primary" type="button">Create private link</button><div id="linkResult"></div></div><div class="card"><div class="eyebrow">Client links</div><div id="linksList"></div></div><div class="card"><div class="eyebrow">Submitted consultations</div><div id="submissionsList"></div></div>';
+  $('logout').addEventListener('click',logout);$('createLink').addEventListener('click',createLink);renderLinks();renderSubmissions();
+}
+
+function renderLinks(){
+  $('linksList').innerHTML=salon.links.length?salon.links.map(x=>'<div class="row"><div><strong>'+esc(x.clientName||x.name||'Client')+'</strong><div class="muted">'+esc(x.service||'')+'</div></div><div class="link">'+esc(x.url||x.link||(location.origin+'/?token='))+'</div></div>').join(''):'<p class="muted">No client links yet.</p>';
+}
+
+function renderSubmissions(){
+  $('submissionsList').innerHTML=salon.submissions.length?salon.submissions.map(x=>'<div class="row"><div><strong>'+esc(x.fullName||x.clientName||'Client')+'</strong><div class="muted">'+esc(x.service||'')+'</div></div><div class="muted">'+esc(x.submittedAt||x.createdAt||'Submitted')+'</div></div>').join(''):'<p class="muted">No submitted consultations yet.</p>';
+}
+
+async function createLink(){
+  const clientName=$('newClient').value.trim(),service=$('newService').value,button=$('createLink'),result=$('linkResult');
+  result.innerHTML='';if(!clientName||!service){showError(result,'Please provide a client name and service.');return;}
+  button.disabled=true;button.textContent='Creating…';
+  try{
+    const response=await fetch('/api/salon/links',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({service,clientName})});
+    const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||'Could not create consultation link.');
+    const link=data.url||data.link||data.consultationUrl||((location.origin)+'/?token='+encodeURIComponent(data.token||''));
+    result.innerHTML='<div class="banner success"><strong>Private consultation link created.</strong><div class="link">'+esc(link)+'</div></div>';
+    await loadSalonData();renderLinks();
+    $('newClient').value='';$('newService').value='';
+  }catch(e){showError(result,e.message);}finally{button.disabled=false;button.textContent='Create private link';}
+}
+
+async function logout(){
+  try{await fetch('/api/logout',{method:'POST',credentials:'same-origin'});}catch(e){}
+  salon={signedIn:false,salonName:'',links:[],submissions:[]};renderLogin();
+}
+
+if(client.token){localStorage.setItem('hairConsultationToken',client.token);loadClient();}else{renderClient();}
+</script>
+</body>
+ </html>
