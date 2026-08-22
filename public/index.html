@@ -43,10 +43,35 @@ function back(){save();client.step--;renderClient();scrollTo(0,0)}
 function buildReview(){let f=client.fields;document.getElementById("review").innerHTML=[["Name",f.fullName],["Service",f.service],["Desired result",f.desiredResult],["Chemical history",(f.chemHistory||[]).join(", ")||"None selected"],["Current concerns",(f.concerns||[]).join(", ")||"None selected"]].map(x=>`<div class="row"><div><b>${esc(x[0])}</b><br><small>${esc(x[1]||"Not provided")}</small></div></div>`).join("")}
 async function submitClient(){save();if(!client.fields.fullName||!client.fields.service)return alert("Please provide your name and booked service.");if(!document.getElementById("confirm").checked)return alert("Please confirm your information before submitting.");let r=await fetch("/api/client/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:client.token,client:{fullName:client.fields.fullName,preferredName:client.fields.preferredName,mobile:client.fields.mobile,email:client.fields.email},answers:client.fields})}),d=await r.json();if(!r.ok)return alert(d.error||"Unable to submit.");document.getElementById("client").innerHTML=`<div class="card success"><div style="font-size:30px">✓</div><h1>Consultation submitted</h1><p class="muted">Your salon has received your information and can review it before your appointment.</p></div>`}
 async function loadClient(){let r=await fetch("/api/client/link?token="+encodeURIComponent(client.token)),d=await r.json();if(!r.ok)return renderClient();client.salon=d.salonName;client.service=d.service;renderClient()}
-async function show(m){const clientView=document.getElementById("client"),salonView=document.getElementById("salon");clientView.hidden=m==="salon";salonView.hidden=m==="client";tClient.classList.toggle("active",m==="client");tSalon.classList.toggle("active",m==="salon");if(m==="salon")renderSalon()}
-async function renderSalon(){let me=await fetch("/api/me").then(r=>r.json());if(!me.signedIn){salon.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Private consultation inbox</h1><p class="muted">Sign in to create client links and review submitted consultations.</p><div class="field"><label>Salon password</label><input id="pw" type="password"></div><button class="btn primary" style="margin-top:10px" onclick="login()">Sign in</button></div>`;return}
+async function show(m){client.hidden=m==="salon";salon.hidden=m==="client";tClient.classList.toggle("active",m==="client");tSalon.classList.toggle("active",m==="salon");if(m==="salon")renderSalon()}
+async function renderSalon(){
+  const salonEl=document.getElementById("salon");
+  salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Loading…</h1><p class="muted">Checking salon access.</p></div>`;
+  try{
+    const r=await fetch("/api/me",{credentials:"same-origin"});
+    const me=await r.json();
+    if(!r.ok) throw new Error(me.error||("Server returned "+r.status));
+    if(!me.signedIn){
+      salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Private consultation inbox</h1><p class="muted">Sign in to create client links and review submitted consultations.</p><div class="field"><label>Salon password</label><input id="pw" type="password" placeholder="Salon password"></div><div id="loginError"></div><button class="btn primary" style="margin-top:10px" onclick="login()">Sign in</button></div>`;
+      return;
+    }
+    salonEl.innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px"><div><div class="eyebrow">${esc(me.salonName)}</div><h1>Consultation Inbox</h1></div><button class="btn" onclick="logout()">Sign out</button></div><div class="banner">Create a private one-use link for each client. Send the link before the appointment.</div><div class="grid"><div class="field"><label>Service</label><select id="newService">${SERVICES.map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>Client name (optional)</label><input id="newClient"></div></div><button class="btn primary" style="margin-top:12px" onclick="createLink()">Create Client Link</button><div id="newLink"></div></div><div class="card"><h2>Submitted consultations</h2><div id="inbox">Loading…</div></div>`;
+    loadInbox();
+  }catch(e){
+    salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Salon area could not load</h1><div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(e.message||"Unknown error")}</div><p class="muted">The page is working, but the salon API did not return a valid response. Tap Try again after the Render service finishes starting.</p><button class="btn primary" onclick="renderSalon()">Try again</button></div>`;
+  }
+}
 salon.innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px"><div><div class="eyebrow">${esc(me.salonName)}</div><h1>Consultation Inbox</h1></div><button class="btn" onclick="logout()">Sign out</button></div><div class="banner">Create a private one-use link for each client. Send the link before the appointment.</div><div class="grid"><div class="field"><label>Service</label><select id="newService">${SERVICES.map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>Client name (optional)</label><input id="newClient"></div></div><button class="btn primary" style="margin-top:12px" onclick="createLink()">Create Client Link</button><div id="newLink"></div></div><div class="card"><h2>Submitted consultations</h2><div id="inbox">Loading…</div></div>`;loadInbox()}
-async function login(){let r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw.value})}),d=await r.json();if(!r.ok)return alert(d.error||"Sign in failed");renderSalon()}
+async function login(){
+  const passwordEl=document.getElementById("pw");
+  const errorEl=document.getElementById("loginError");
+  try{
+    const r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({password:passwordEl.value})});
+    const d=await r.json();
+    if(!r.ok){errorEl.innerHTML=`<div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(d.error||"Sign in failed")}</div>`;return;}
+    renderSalon();
+  }catch(e){errorEl.innerHTML=`<div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(e.message)}</div>`;}
+}
 async function logout(){await fetch("/api/logout",{method:"POST"});renderSalon()}
 async function createLink(){let service=newService.value,clientName=newClient.value,r=await fetch("/api/salon/links",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service,clientName})}),d=await r.json();if(!r.ok)return alert(d.error||"Could not create link");let link=location.origin+location.pathname+"?token="+encodeURIComponent(d.token);newLink.innerHTML=`<div class="banner"><b>Private client link</b><div class="linkbox">${esc(link)}</div><button class="btn copy" style="margin-top:8px" onclick="navigator.clipboard.writeText('${link}')">Copy link</button></div>`}
 async function loadInbox(){let r=await fetch("/api/salon/submissions"),d=await r.json();if(!r.ok)return;inbox.innerHTML=d.submissions.length?d.submissions.map(x=>`<div class="row"><div><b>${esc(x.client.fullName)}</b><br><small>${esc(x.service)} · ${new Date(x.submittedAt).toLocaleString()}</small></div><button class="btn" onclick='viewSubmission("${x.id}")'>Review</button></div>`).join(""):"<p class='muted'>No consultations submitted yet.</p>"}
