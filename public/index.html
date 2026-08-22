@@ -61,7 +61,6 @@ async function renderSalon(){
     salonEl.innerHTML=`<div class="card"><div class="eyebrow">SALON PORTAL</div><h1>Salon area could not load</h1><div class="banner" style="border-color:#c99;background:#f7e5e2">${esc(e.message||"Unknown error")}</div><p class="muted">The page is working, but the salon API did not return a valid response. Tap Try again after the Render service finishes starting.</p><button class="btn primary" onclick="renderSalon()">Try again</button></div>`;
   }
 }
-salon.innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px"><div><div class="eyebrow">${esc(me.salonName)}</div><h1>Consultation Inbox</h1></div><button class="btn" onclick="logout()">Sign out</button></div><div class="banner">Create a private one-use link for each client. Send the link before the appointment.</div><div class="grid"><div class="field"><label>Service</label><select id="newService">${SERVICES.map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>Client name (optional)</label><input id="newClient"></div></div><button class="btn primary" style="margin-top:12px" onclick="createLink()">Create Client Link</button><div id="newLink"></div></div><div class="card"><h2>Submitted consultations</h2><div id="inbox">Loading…</div></div>`;loadInbox()}
 async function login(){
   const passwordEl=document.getElementById("pw");
   const errorEl=document.getElementById("loginError");
